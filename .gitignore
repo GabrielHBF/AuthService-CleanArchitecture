@@ -41,3 +41,4 @@ csx/
 Thumbs.db
 appsettings.Development.json
 
+src/AuthService.Api/appsettings.Development.json
