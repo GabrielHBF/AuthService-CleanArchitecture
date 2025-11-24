@@ -39,6 +39,4 @@ csx/
 # Operating System files
 .DS_Store
 Thumbs.db
-appsettings.Development.json
 
-src/AuthService.Api/appsettings.Development.json
