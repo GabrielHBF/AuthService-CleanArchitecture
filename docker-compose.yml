@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: auth_postgres
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: src/AuthService.Api/Dockerfile
+    container_name: auth_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=authdb;Username=postgres;Password=postgres
+      - JWT__Secret=SegredoPadraoMuitoForteParaDesenvolvimento123!
+      - JWT__Issuer=AuthService
+      - JWT__Audience=AuthClient
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
